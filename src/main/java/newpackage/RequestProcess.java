@@ -48,6 +48,7 @@ public class RequestProcess {
         StringWriter out = new StringWriter();
         obj.writeJSONString(out);
         String encJson = out.toString();
+      //  System.out.println("this is json :" + encJson );
         //post to service
         String post_output = post(url, encJson);
         //test
@@ -121,7 +122,7 @@ public class RequestProcess {
         StringWriter out = new StringWriter();
         obj.writeJSONString(out);
         String enc_json = out.toString();
-        //System.out.println("this is json :" + enc_json + "\n");
+       // System.out.println("this is json :" + enc_json );
         //post to service
         String post_output = post(url, enc_json);
         //test
@@ -141,7 +142,7 @@ public class RequestProcess {
         StringWriter out = new StringWriter();
         obj.writeJSONString(out);
         String enc_json = out.toString();
-        //System.out.println("this is json :" + enc_json + "\n");
+       // System.out.println("this is json :" + enc_json );
         //post to service
         String post_output = post(url, enc_json);
         //test
@@ -206,7 +207,7 @@ public class RequestProcess {
         StringWriter out = new StringWriter();
         obj.writeJSONString(out);
         String enc_json = out.toString();
-        //System.out.println("this is json :" + enc_json + "\n");
+        //System.out.println("this is json :" + enc_json);
         //post to service
         String post_output = post(url, enc_json);
         //test
@@ -274,7 +275,7 @@ public class RequestProcess {
         StringWriter out = new StringWriter();
         obj.writeJSONString(out);
         String enc_json = out.toString();
-        //System.out.println("this is json :" + enc_json + "\n");
+       // System.out.println("this is json :" + enc_json);
         //post to service
         String post_output = post(url, enc_json);
         //test
@@ -361,7 +362,7 @@ public class RequestProcess {
         StringWriter out = new StringWriter();
         obj.writeJSONString(out);
         String enc_json = out.toString();
-       // System.out.println("this is json :" + enc_json + "\n");
+       //System.out.println("this is json :" + enc_json);
         //post to service
         String post_output = post(url, enc_json);
         //test
@@ -388,7 +389,7 @@ public class RequestProcess {
         StringWriter out = new StringWriter();
         obj.writeJSONString(out);
         String enc_json = out.toString();
-        System.out.println("this is json :" + enc_json + "\n");
+       // System.out.println("this is json :" + enc_json);
         //post to service
         String post_output = post(url, enc_json);
         //test

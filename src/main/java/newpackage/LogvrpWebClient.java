@@ -102,7 +102,7 @@ public class LogvrpWebClient {
                 req.result(result_url, ticket, algorithm_id[0]);
                 return "Called!";
             }
-        },30, TimeUnit.SECONDS);
+        },70, TimeUnit.SECONDS);
         scheduledExecutorService.shutdown();
         /*
  
