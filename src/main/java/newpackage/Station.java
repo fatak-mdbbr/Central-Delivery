@@ -12,13 +12,13 @@ import com.j256.ormlite.table.DatabaseTable;
 public class Station {
 
     @DatabaseField(id = true)
-    int id;
+    String id;
     @DatabaseField(defaultValue = "")
     String name;
     @DatabaseField(canBeNull = false)
-    double y;
+    String y;
     @DatabaseField(canBeNull = false)
-    double x;
+    String x;
     @DatabaseField(canBeNull = false)
     int isDepot;
     @DatabaseField(defaultValue = "0")
@@ -27,7 +27,7 @@ public class Station {
       Station() {
     }
 
-    public Station(int ID, String N, double Y, double X,int DT,int BST) {
+    public Station(String ID, String N,String Y, String X,int DT,int BST) {
 
         id = ID;
         name = N;

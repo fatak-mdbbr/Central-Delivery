@@ -4,6 +4,7 @@ import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
 import com.j256.ormlite.support.ConnectionSource;
+import com.j256.ormlite.table.TableUtils;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -63,21 +64,6 @@ public class LogvrpWebClient {
         List<Station> station_list = stationDao.queryForAll();
         List<Vehicle> vehicle_list = vehicleDao.queryForAll();
 
-        /*    System.out.println("Iterate orders : \n");
-         for (int i = 0; i < vehicle_list.size(); i++) {
-         System.out.println("id: " + vehicle_list.get(i).id + "\t"
-         + "name :" + vehicle_list.get(i).name + "\t"
-         + "bid :" + vehicle_list.get(i).bid + "\t"
-         + "eid:" + vehicle_list.get(i).eid + "\t"
-         + "loadType:" + vehicle_list.get(i).loadType + "\t"
-         + "cp:" + vehicle_list.get(i).cp + "\t"
-         + "cw:" + vehicle_list.get(i).cw + "\t"
-         + "cv:" + vehicle_list.get(i).cv + "\t"
-         + "speed:" + vehicle_list.get(i).speed + "\t"
-         + "dd:" + vehicle_list.get(i).dd + "\t"
-         );
-         }
-         */
         int[] algorithm_id = {1, 2};
         int station_number = station_list.size();
         int order_number = order_list.size();
@@ -94,20 +80,19 @@ public class LogvrpWebClient {
         req.disORdurMatrix(duration_matrix_url, ticket, "durationMatrix");
         req.orderSet(orders_url, ticket, order_list, order_number);
         req.vehicleSet(vehicles_url, ticket, vehicle_list, order_number);
-        long optim_time = req.Optimization(optimization_url, ticket);
-        System.out.println(optim_time);
-        ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(5);
-        ScheduledFuture scheduledFuture = scheduledExecutorService.schedule(new Callable() {
-            public Object call() throws Exception {
-                req.result(result_url, ticket, algorithm_id[0]);
-                return "Called!";
-            }
-        },70, TimeUnit.SECONDS);
-        scheduledExecutorService.shutdown();
+        req.Optimization(optimization_url, ticket);
+          ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(8);
+         ScheduledFuture scheduledFuture = scheduledExecutorService.schedule(new Callable() {
+         public Object call() throws Exception {
+         req.result(result_url, ticket, algorithm_id[0]);
+         return "Called!";
+         }
+         },90, TimeUnit.SECONDS);
+         scheduledExecutorService.shutdown();
         /*
- 
-         
+       
          */
+
         System.out.println("****************************************************************** \n"
                 + "****************************************************************** \n"
                 + "****************************************************************** "

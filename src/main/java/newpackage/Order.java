@@ -12,13 +12,13 @@ import com.j256.ormlite.table.DatabaseTable;
 public class Order {
 
     @DatabaseField(id = true)
-    int id;
+    String id;
 
     @DatabaseField(canBeNull = false)
-    int fi;
+    String fi;
 
     @DatabaseField(canBeNull = false)
-    int ti;
+    String ti;
 
     @DatabaseField(defaultValue = "1")
     int loadType;
@@ -42,9 +42,9 @@ public class Order {
         // all persisted classes must define a no-arg constructor with at least package visibility
     }
 
-    public Order(int id,
-            int fi,
-            int ti,
+    public Order(String id,
+            String fi,
+            String ti,
             int lt,
             float a,
             float v,

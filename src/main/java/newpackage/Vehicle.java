@@ -7,13 +7,13 @@ import com.j256.ormlite.table.DatabaseTable;
 public class Vehicle {
 
     @DatabaseField(id = true)
-    int id;
+    String id;
     @DatabaseField(defaultValue = "")
     String name;
     @DatabaseField(canBeNull = false)
-    int bid;
+    String bid;
     @DatabaseField(canBeNull = false)
-    int eid;
+    String eid;
     @DatabaseField(defaultValue = "1")
     int loadType;
     @DatabaseField(canBeNull = false)
@@ -31,10 +31,10 @@ public class Vehicle {
     }
 
     public Vehicle(
-            int id,
+            String id,
             String n,
-            int bid,
-            int eid,
+            String bid,
+            String eid,
             int lt,
             float cp,
             float cw,

@@ -1,5 +1,6 @@
 package newpackage;
 
+import com.j256.ormlite.stmt.UpdateBuilder;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.List;
@@ -39,6 +40,7 @@ public class RequestProcess {
     }
 
     String getTicket(String url, int algo_id) throws IOException, ParseException {
+
         //encode json
         JSONObject obj = new JSONObject();
         obj.put("apiKey", api_key);
@@ -48,18 +50,18 @@ public class RequestProcess {
         StringWriter out = new StringWriter();
         obj.writeJSONString(out);
         String encJson = out.toString();
-      //  System.out.println("this is json :" + encJson );
+        System.out.println("input json for ticket service :\n" + encJson);
         //post to service
         String post_output = post(url, encJson);
         //test
-        System.out.println("$$$ sevice ticket :"+post_output);
+        System.out.println("output for ticket service :\n" + post_output);
         //decode json
         JSONParser parser = new JSONParser();
         Object parsObj = parser.parse(post_output);
         JSONObject jsonObj = (JSONObject) parsObj;
         // System.out.println(jsonObj);
         String data = (String) jsonObj.get("Data");
-        System.out.println("$$$ ticket is : " + data);
+        System.out.println("ticket :\n" + data);
         return data;
     }//getTicket
 
@@ -99,13 +101,13 @@ public class RequestProcess {
         for (int i = 0; i < data_count; i++) {
             eachStation[i] = new JSONObject();
 
-            /* 1 */ eachStation[i].put("ID", (int) station_list.get(i).id);
+            /* 1 */ eachStation[i].put("ID", (String) station_list.get(i).id);
             /* 2 */ eachStation[i].put("N", (String) station_list.get(i).name);
             /* 3 */ eachStation[i].put("SID", "0");
             /* 4 */ eachStation[i].put("OID", "0");
             /* 5 */ eachStation[i].put("CID", "0");
-            /* 6 */ eachStation[i].put("X", (double) station_list.get(i).x);
-            /* 7 */ eachStation[i].put("Y", (double) station_list.get(i).y);
+            /* 6 */ eachStation[i].put("X", (String) station_list.get(i).x);
+            /* 7 */ eachStation[i].put("Y", (String) station_list.get(i).y);
             /* 8 */ eachStation[i].put("AD", "");
             /* 9 */ eachStation[i].put("AS", "");
             /* 10 */ eachStation[i].put("P", "0");
@@ -113,7 +115,6 @@ public class RequestProcess {
             /* 12 */ eachStation[i].put("DT", station_list.get(i).isDepot == 0 ? "false" : "true");
             /* 13 */ eachStation[i].put("D", "false");
             /* 14 */ eachStation[i].put("BaseServiceTime", station_list.get(i).bst);
-            /* 15 */ eachStation[i].put("C", false);
 
             json_st_array.add(eachStation[i]);
         }
@@ -122,11 +123,11 @@ public class RequestProcess {
         StringWriter out = new StringWriter();
         obj.writeJSONString(out);
         String enc_json = out.toString();
-       // System.out.println("this is json :" + enc_json );
+        System.out.println("input json for station service :\n" + enc_json);
         //post to service
         String post_output = post(url, enc_json);
         //test
-        System.out.println("&&& service station :"+post_output);
+        System.out.println("output for station service :\n" + post_output);
         //decode json
     }
 
@@ -142,11 +143,11 @@ public class RequestProcess {
         StringWriter out = new StringWriter();
         obj.writeJSONString(out);
         String enc_json = out.toString();
-       // System.out.println("this is json :" + enc_json );
+        System.out.println("input json for " + dis_or_dure + "service :\n" + enc_json);
         //post to service
         String post_output = post(url, enc_json);
         //test
-        System.out.println("&&& "+dis_or_dure+"service :"+post_output);
+        System.out.println("output json for " + dis_or_dure + " service :\n" + post_output);
         //decode json
     }//method disORdureMatrix
 
@@ -183,10 +184,10 @@ public class RequestProcess {
         for (int i = 0; i < number_of_order; i++) {
             each_order[i] = new JSONObject();
 
-            /* 1 */ each_order[i].put("ID", (int) order_list.get(i).id);
+            /* 1 */ each_order[i].put("ID", (String) order_list.get(i).id);
             /* 2 */ each_order[i].put("UID", "");
-            /* 3 */ each_order[i].put("FI", (int) order_list.get(i).fi);
-            /* 4 */ each_order[i].put("TI", (int) order_list.get(i).ti);
+            /* 3 */ each_order[i].put("FI", (String) order_list.get(i).fi);
+            /* 4 */ each_order[i].put("TI", (String) order_list.get(i).ti);
             /* 5 */ each_order[i].put("LT", (int) order_list.get(i).loadType);
             /* 6 */ each_order[i].put("A", (float) order_list.get(i).amount);
             /* 7 */ each_order[i].put("V", (float) order_list.get(i).volume);
@@ -207,11 +208,11 @@ public class RequestProcess {
         StringWriter out = new StringWriter();
         obj.writeJSONString(out);
         String enc_json = out.toString();
-        //System.out.println("this is json :" + enc_json);
+        System.out.println("input json for order service :\n" + enc_json);
         //post to service
         String post_output = post(url, enc_json);
         //test
-        System.out.println("&&& service order :"+post_output);
+        System.out.println("output for order service :\n" + post_output);
         //decode json
     }//method orderSet
 
@@ -249,13 +250,13 @@ public class RequestProcess {
         for (int i = 0; i < number_of_vehicle; i++) {
             each_vehicle[i] = new JSONObject();
 
-            /* 1 */ each_vehicle[i].put("ID", (int) vehicle_list.get(i).id);
+            /* 1 */ each_vehicle[i].put("ID", (String) vehicle_list.get(i).id);
             /* 2 */ each_vehicle[i].put("N", (String) vehicle_list.get(i).name);
             /* 3 */ each_vehicle[i].put("VID", 0);
             /* 4 */ each_vehicle[i].put("OID", 0);
             /* 5 */ each_vehicle[i].put("CID", 0);
-            /* 6 */ each_vehicle[i].put("BID", (int) vehicle_list.get(i).bid);
-            /* 7 */ each_vehicle[i].put("EID", (int) vehicle_list.get(i).eid);
+            /* 6 */ each_vehicle[i].put("BID", (String) vehicle_list.get(i).bid);
+            /* 7 */ each_vehicle[i].put("EID", (String) vehicle_list.get(i).eid);
             /* 8 */ each_vehicle[i].put("LT", (int) vehicle_list.get(i).loadType);
             /* 9 */ each_vehicle[i].put("CP", (float) vehicle_list.get(i).cp);
             /* 10 */ each_vehicle[i].put("CW", (float) vehicle_list.get(i).cw);
@@ -275,16 +276,16 @@ public class RequestProcess {
         StringWriter out = new StringWriter();
         obj.writeJSONString(out);
         String enc_json = out.toString();
-       // System.out.println("this is json :" + enc_json);
+        System.out.println("input json for vehicle service :\n" + enc_json);
         //post to service
         String post_output = post(url, enc_json);
         //test
-        System.out.println("$$$ vehicle service : "+post_output);
+        System.out.println("output json for vehicle service :\n" + post_output);
 
         //decode json
     }//method vehicleSet
 
-    long Optimization(String url, String computation_ticket_id) throws IOException, ParseException {
+    void Optimization(String url, String computation_ticket_id) throws IOException, ParseException {
 
         //encode json
         JSONObject obj = new JSONObject();
@@ -345,10 +346,10 @@ public class RequestProcess {
         obj_computation_parameters.put("avoidHighways", false);
         obj_computation_parameters.put("avoidTolls", false);
         obj_computation_parameters.put("vehicleEndOfDayLocation", 1);
-        obj_computation_parameters.put("visitStationsOnce",true);
-        obj_computation_parameters.put("partitionByLocations",true);
-        obj_computation_parameters.put("allowDepotRevisitBySameVehicle",false);
-        obj_computation_parameters.put("maxDistancePerRoute", 0);
+        obj_computation_parameters.put("visitStationsOnce", true);
+        obj_computation_parameters.put("partitionByLocations", true);
+        obj_computation_parameters.put("allowDepotRevisitBySameVehicle", false);
+        obj_computation_parameters.put("maxDistancePerRoute", "0");
         obj_computation_parameters.put("maxContinuousRideTime", obj_max_continuous_ride_time);
         obj_computation_parameters.put("maxWorkTimeInDay", obj_max_work_time_in_day);
         obj_computation_parameters.put("minPauseTime", obj_min_pause_time);
@@ -362,25 +363,25 @@ public class RequestProcess {
         StringWriter out = new StringWriter();
         obj.writeJSONString(out);
         String enc_json = out.toString();
-       //System.out.println("this is json :" + enc_json);
+        System.out.println("input json for optimization service :\n" + enc_json);
         //post to service
         String post_output = post(url, enc_json);
         //test
-        System.out.println("$$$ optimization service :"+post_output);
+        System.out.println("output json for optimization service :\n" + post_output);
         //decode json
         JSONParser parser = new JSONParser();
         Object pars_obj = parser.parse(post_output);
         JSONObject jsonObj = (JSONObject) pars_obj;
         // System.out.println(jsonObj);
-
-        long data = (long) jsonObj.get("Data");
-
-        return data;
-
         //decode json
+        long data = (long) jsonObj.get("Data");
+        System.out.println("optimmization time : " + data);
+
     }//method optimization
 
-    void result(String url, String computation_ticket_id, int algorithm_id) throws IOException, ParseException {
+    void result(String url,
+            String computation_ticket_id,
+            int algorithm_id) throws IOException, ParseException {
         //encode json
         JSONObject obj = new JSONObject();
         obj.put("apiKey", api_key);
@@ -389,11 +390,11 @@ public class RequestProcess {
         StringWriter out = new StringWriter();
         obj.writeJSONString(out);
         String enc_json = out.toString();
-       // System.out.println("this is json :" + enc_json);
+        System.out.println("input json for result service :\n" + enc_json);
         //post to service
         String post_output = post(url, enc_json);
         //test
-        System.out.println(post_output);
+        System.out.println("output json for result service :\n" +post_output);
         //decode json
         //JSONParser parser = new JSONParser();
         //Object pars_obj = parser.parse(post_output);
