@@ -77,10 +77,11 @@ public class RequestProcess {
 
         obj.put("apiKey", api_key);
         obj.put("computationTicketID", computation_ticket_id);
-
+        obj.put("completeStationSet", obj_complete_set);
         obj_complete_set.put("DistanceMatrix", null);
         obj_complete_set.put("DurationMatrix", null);
-
+        obj_complete_set.put("StationSet", obj_station_set);
+        
         obj_station_set.put("ID", 0);
         obj_station_set.put("SetName", "");
         obj_station_set.put("RelatedStationSetID", 0);
@@ -93,10 +94,8 @@ public class RequestProcess {
         obj_station_set.put("DataCount", data_count);
         obj_station_set.put("IsDeleted", false);
 
-        obj_complete_set.put("StationSet", obj_station_set);
-
         JSONArray json_st_array = new JSONArray();
-
+        obj_complete_set.put("Stations", json_st_array);
         JSONObject[] eachStation = new JSONObject[data_count];
         for (int i = 0; i < data_count; i++) {
             eachStation[i] = new JSONObject();
@@ -118,8 +117,9 @@ public class RequestProcess {
 
             json_st_array.add(eachStation[i]);
         }
-        obj_complete_set.put("Stations", json_st_array);
-        obj.put("completeStationSet", obj_complete_set);
+
+        
+        
         StringWriter out = new StringWriter();
         obj.writeJSONString(out);
         String enc_json = out.toString();
@@ -174,7 +174,7 @@ public class RequestProcess {
         obj_order_set.put("CreationTime", "2016-09-15 00:00:00");
         obj_order_set.put("LastUpdatedUserID", 0);
         obj_order_set.put("LastUpdatedTime", "2016-09-15 00:00:00");
-        obj_order_set.put("DataCount", data_count);
+        obj_order_set.put("DataCount",0);
         obj_order_set.put("IsDeleted", false);
 
         obj_complete_order_set.put("OrderSet", obj_order_set);
@@ -185,13 +185,13 @@ public class RequestProcess {
             each_order[i] = new JSONObject();
 
             /* 1 */ each_order[i].put("ID", (String) order_list.get(i).id);
-            /* 2 */ each_order[i].put("UID", "");
+            /* 2 */ each_order[i].put("UID", (String) order_list.get(i).uid);
             /* 3 */ each_order[i].put("FI", (String) order_list.get(i).fi);
             /* 4 */ each_order[i].put("TI", (String) order_list.get(i).ti);
             /* 5 */ each_order[i].put("LT", (int) order_list.get(i).loadType);
-            /* 6 */ each_order[i].put("A", (float) order_list.get(i).amount);
-            /* 7 */ each_order[i].put("V", (float) order_list.get(i).volume);
-            /* 8 */ each_order[i].put("W", (float) order_list.get(i).weight);
+            /* 6 */ each_order[i].put("A", (int) order_list.get(i).amount);
+            /* 7 */ each_order[i].put("V", (int) order_list.get(i).volume);
+            /* 8 */ each_order[i].put("W", (int) order_list.get(i).weight);
             /* 9 */ each_order[i].put("LD", "P0DT0H1M");
             /* 10 */ each_order[i].put("UD", "P0DT0H2M");
             /* 11 */ each_order[i].put("T1", null);
@@ -240,7 +240,7 @@ public class RequestProcess {
         obj_vehicle_set.put("CreationTime", "2016-09-15 00:00:00");
         obj_vehicle_set.put("LastUpdatedUserID", 0);
         obj_vehicle_set.put("LastUpdatedTime", "2016-09-15 00:00:00");
-        obj_vehicle_set.put("DataCount", data_count);
+        obj_vehicle_set.put("DataCount", 0);
         obj_vehicle_set.put("IsDeleted", false);
 
         obj_complete_vehicle_set.put("VehicleSet", obj_vehicle_set);
@@ -258,10 +258,10 @@ public class RequestProcess {
             /* 6 */ each_vehicle[i].put("BID", (String) vehicle_list.get(i).bid);
             /* 7 */ each_vehicle[i].put("EID", (String) vehicle_list.get(i).eid);
             /* 8 */ each_vehicle[i].put("LT", (int) vehicle_list.get(i).loadType);
-            /* 9 */ each_vehicle[i].put("CP", (float) vehicle_list.get(i).cp);
-            /* 10 */ each_vehicle[i].put("CW", (float) vehicle_list.get(i).cw);
-            /* 11 */ each_vehicle[i].put("CV", (float) vehicle_list.get(i).cv);
-            /* 12 */ each_vehicle[i].put("S", (float) vehicle_list.get(i).speed);
+            /* 9 */ each_vehicle[i].put("CP", (int) vehicle_list.get(i).cp);
+            /* 10 */ each_vehicle[i].put("CW", (int) vehicle_list.get(i).cw);
+            /* 11 */ each_vehicle[i].put("CV", (int) vehicle_list.get(i).cv);
+            /* 12 */ each_vehicle[i].put("S", (int) vehicle_list.get(i).speed);
             each_vehicle[i].put("DC", 0.5);
             /* 14 */ each_vehicle[i].put("F", 5);
             /* 15 */ each_vehicle[i].put("DD", "/Date(" + vehicle_list.get(i).dd + ")/");
@@ -394,7 +394,7 @@ public class RequestProcess {
         //post to service
         String post_output = post(url, enc_json);
         //test
-        System.out.println("output json for result service :\n" +post_output);
+        System.out.println("output json for result service :\n" + post_output);
         //decode json
         //JSONParser parser = new JSONParser();
         //Object pars_obj = parser.parse(post_output);

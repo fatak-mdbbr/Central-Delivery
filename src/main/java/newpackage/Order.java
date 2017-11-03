@@ -24,20 +24,24 @@ public class Order {
     int loadType;
 
     @DatabaseField(canBeNull = false)
-    float amount;
+    int amount;
 
     @DatabaseField(defaultValue = "0")
-    float volume;
+    int volume;
 
     @DatabaseField(defaultValue = "0")
-    float weight;
+    int weight;
 
     @DatabaseField(defaultValue = "null")
     String t3;
 
     @DatabaseField(defaultValue = "null")
     String t4;
+    
+      @DatabaseField
+    String uid;
 
+    
     Order() {
         // all persisted classes must define a no-arg constructor with at least package visibility
     }
@@ -46,11 +50,12 @@ public class Order {
             String fi,
             String ti,
             int lt,
-            float a,
-            float v,
-            float w,
+            int a,
+            int v,
+            int w,
             String t3,
-            String t4
+            String t4,
+            String uid
     ) {
 
         this.id = id;
@@ -62,6 +67,7 @@ public class Order {
         this.weight= w;
         this.t3= t3;
         this.t4= t4;
+        this.uid=uid;
     }
 
 }//class order

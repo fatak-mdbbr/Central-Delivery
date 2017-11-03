@@ -17,13 +17,13 @@ public class Vehicle {
     @DatabaseField(defaultValue = "1")
     int loadType;
     @DatabaseField(canBeNull = false)
-    float cp;
+    int cp;
     @DatabaseField(defaultValue = "0")
-    float cw;
+    int cw;
     @DatabaseField(defaultValue = "0")
-    float cv;
+    int cv;
     @DatabaseField(defaultValue = "40")
-    float speed;
+    int speed;
     @DatabaseField(defaultValue = "null")
     String dd;
 
@@ -36,10 +36,10 @@ public class Vehicle {
             String bid,
             String eid,
             int lt,
-            float cp,
-            float cw,
-            float cv,
-            float s,
+            int cp,
+            int cw,
+            int cv,
+            int s,
             String dd) {
 
         this.id = id;
